@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<aiml>
+
+    <category>
+        <pattern>init</pattern>
+        <template>
+            <think>
+                <set name ="theme">null</set>
+                <set name ="subject">null</set>
+                <set name ="userName">null</set>
+                <set name ="hasName">false</set>
+                <set name ="alpha">1</set>
+                <set name ="beta">1</set>
+                <set name ="gamma">1</set>
+                <set name ="delta">1</set>
+                <set name ="epsilon">1</set>
+                <set name ="zeta">1</set>
+                <set name ="eta">1</set>
+                <set name ="theta">1</set>
+                <set name ="iota">1</set>
+                <set name ="kappa">1</set>
+            </think>
+            Бот запущен
+        </template>   
+    </category>
+
+    <category>
+        <pattern>Привет</pattern>
+        <template>
+            <condition name="hasName" value="true">
+               Привет!
+            </condition>
+            <condition name="hasName" value="false">Привет! Как тебя зовут?</condition>
+        </template>   
+    </category>
+
+    <category>
+        <pattern>Как меня зовут</pattern>
+        <template>
+            <condition name="hasName" value="true">
+                Тебя зовут <get name="userName"/>
+            </condition>
+            <condition name="hasName" value="false">
+                Я не знаю, как тебя зовут :(
+            </condition>
+        </template>
+    </category>
+
+     
+     <category>
+        <pattern>*</pattern>
+        <that>Привет Как тебя зовут?</that>
+        <template>
+            <srai>Меня зовут <star/></srai>
+        </template>   
+    </category>
+
+    <category>
+        <pattern>Меня зовут *</pattern>
+        <template>
+            <think>
+                <set name ="userName"><star/></set>
+                <set name ="hasName">true</set>
+            </think>
+            <random>
+                <li> Приятно познакомиться, <star/>! </li>
+                <li> Рад знакомству, <star/>! </li>
+                <li> Очень приятно, <star/>! </li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>Мое имя *</pattern>
+        <template>
+            <srai>Меня зовут <star/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>О чем мы говорим</pattern>
+        <template>
+            <condition name="theme" value="letter">
+                  Мы говорим о букве <get name="subject" />
+            </condition>
+            <condition name="theme" value="null">
+                  Мы говорим о птичках
+            </condition>
+        </template>
+    </category>
+
+    <category>
+        <pattern>Расскажи про нейросеть</pattern>
+        <template>
+            Нейросеть умеет распознавать греческие буквы альфа (alpha), бета (beta),
+            гамма (gamma), дельта (delta), эпсилон (epsilon), дзета (zeta), эта (eta),
+            тета (theta), йота (iota), каппа (kappa)
+        </template>   
+    </category>
+
+    <category>
+        <pattern>Расскажи еще</pattern>
+        <template>
+            <condition name="theme" value="letter">
+                <srai>Расскажи про букву <get name="subject" /></srai>
+            </condition>
+            <condition name="theme" value="null">
+                Что значит еще? 
+            </condition>
+        </template>
+    </category>
+
+    <category>
+        <pattern>Расскажи о букве *</pattern>
+        <template>
+            <srai>Расскажи про букву <star/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>Расскажи про букву альфа</pattern>
+        <template>
+
+            <condition name="alpha" value="4">
+                Увы, я больше ничего не знаю про букву альфа (
+                <think>
+                    <set name="alpha">0</set>
+                </think>
+            </condition>
+
+            <condition name="alpha" value="3">
+                <think>
+                    <set name="alpha">4</set>
+                </think>
+                А ещё есть инопланетянин Альф. Он не имеет никакого отоншения к букве альфа, 
+                но он милый и пушистый
+            </condition>
+
+            <condition name="alpha" value="2">
+                <think>
+                    <set name="alpha">3</set>
+                </think>
+                Есть такая звезда - Альфа-Центавра
+            </condition>
+
+            <condition name="alpha" value="1">
+                <think>
+                    <set name="alpha">2</set>
+                    <set name="subject">альфа</set>
+                    <set name="theme">letter</set>
+                </think>
+                Первая буква греческого алфавита
+            </condition>
+
+            <condition name="alpha" value="0">
+                <think>
+                    <set name="alpha">1</set>
+                </think>
+            </condition>
+        </template>   
+    </category>
+
+    
+
+</aiml>
