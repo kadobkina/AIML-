@@ -71,16 +71,8 @@ namespace AIMLTGBot
                 var imageStream = new MemoryStream();
                 await client.DownloadFileAsync(fl.FilePath, imageStream, cancellationToken: cancellationToken);
                 var bitmap = new Bitmap(Image.FromStream(imageStream));
-               
 
-                AForge.Imaging.Filters.Grayscale grayFilter = new Grayscale(0.2125, 0.7154, 0.0721);
-                var uProcessed = grayFilter.Apply(AForge.Imaging.UnmanagedImage.FromManagedImage(bitmap));
-                AForge.Imaging.Filters.BradleyLocalThresholding threshldFilter = new AForge.Imaging.Filters.BradleyLocalThresholding();
-                threshldFilter.PixelBrightnessDifferenceLimit = 0.15f;
-                threshldFilter.ApplyInPlace(uProcessed);
-                bitmap = uProcessed.ToManagedImage();
-                ResizeBilinear scaleFilter = new ResizeBilinear(200, 200);
-                bitmap = scaleFilter.Apply(bitmap);
+                //bitmap = scaleFilter.Apply(bitmap);
                 var sample = new Sample<AlphabetSampleData>(bitmap.ToInput(),10, new AlphabetSampleData());
 
 
