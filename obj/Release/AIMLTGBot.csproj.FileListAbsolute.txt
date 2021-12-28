@@ -143,3 +143,4 @@ D:\MMCS\AI\AIMLTGBot\bin\Release\System.Xml.XmlDocument.dll
 D:\MMCS\AI\AIMLTGBot\bin\Release\System.Xml.XmlSerializer.dll
 D:\MMCS\AI\AIMLTGBot\bin\Release\System.Xml.XPath.dll
 D:\MMCS\AI\AIMLTGBot\bin\Release\System.Xml.XPath.XDocument.dll
+D:\MMCS\AI\AIMLTGBot\obj\Release\AIMLTGBot.csproj.AssemblyReference.cache

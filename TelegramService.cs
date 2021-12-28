@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AForge.Imaging.Filters;
+using NeuralNetwork1;
+using NeuralNetwork1.SampleGeneration;
+using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -18,6 +22,7 @@ namespace AIMLTGBot
         private readonly AIMLService aiml;
         // CancellationToken - инструмент для отмены задач, запущенных в отдельном потоке
         private readonly CancellationTokenSource cts = new CancellationTokenSource();
+        private BaseNetwork<AlphabetSampleData> network = new EvgenNetwork<AlphabetSampleData>("..//..//network.net");
         public string Username { get; }
 
         public TelegramService(string token, AIMLService aimlService)
@@ -65,16 +70,35 @@ namespace AIMLTGBot
                 Telegram.Bot.Types.File fl = await client.GetFileAsync(photoId, cancellationToken: cancellationToken);
                 var imageStream = new MemoryStream();
                 await client.DownloadFileAsync(fl.FilePath, imageStream, cancellationToken: cancellationToken);
+                var bitmap = new Bitmap(Image.FromStream(imageStream));
+               
+
+                AForge.Imaging.Filters.Grayscale grayFilter = new Grayscale(0.2125, 0.7154, 0.0721);
+                var uProcessed = grayFilter.Apply(AForge.Imaging.UnmanagedImage.FromManagedImage(bitmap));
+                AForge.Imaging.Filters.BradleyLocalThresholding threshldFilter = new AForge.Imaging.Filters.BradleyLocalThresholding();
+                threshldFilter.PixelBrightnessDifferenceLimit = 0.15f;
+                threshldFilter.ApplyInPlace(uProcessed);
+                bitmap = uProcessed.ToManagedImage();
+                ResizeBilinear scaleFilter = new ResizeBilinear(200, 200);
+                bitmap = scaleFilter.Apply(bitmap);
+                var sample = new Sample<AlphabetSampleData>(bitmap.ToInput(),10, new AlphabetSampleData());
+
+
                 // Если бы мы хотели получить битмап, то могли бы использовать new Bitmap(Image.FromStream(imageStream))
                 // Но вместо этого пошлём картинку назад
                 // Стрим помнит последнее место записи, мы же хотим теперь прочитать с самого начала
-                imageStream.Seek(0, 0);
-                await client.SendPhotoAsync(
-                    message.Chat.Id,
-                    imageStream,
-                    "Пока что я не знаю, что делать с картинками, так что держи обратно",
-                    cancellationToken: cancellationToken
-                );
+                //imageStream.Seek(0, 0);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    ms.Position = 0;
+                    await client.SendPhotoAsync(
+                       message.Chat.Id,
+                       ms,
+                       $"Распознана буква: {network.Predict(sample)}",
+                       cancellationToken: cancellationToken
+                    );
+                }  
                 return;
             }
             // Можно обрабатывать разные виды сообщений, просто для примера пробросим реакцию на них в AIML

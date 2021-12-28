@@ -130,3 +130,17 @@ D:\MMCS\AI\AIMLTGBot\obj\Debug\AIMLTGBot.csproj.CopyComplete
 D:\MMCS\AI\AIMLTGBot\obj\Debug\AIMLTGBot.exe
 D:\MMCS\AI\AIMLTGBot\obj\Debug\AIMLTGBot.pdb
 D:\MMCS\AI\AIMLTGBot\obj\Debug\AIMLTGBot.csproj.SuggestedBindingRedirects.cache
+D:\MMCS\AI\AIMLTGBot\bin\Debug\Accord.dll
+D:\MMCS\AI\AIMLTGBot\bin\Debug\Accord.Neuro.dll
+D:\MMCS\AI\AIMLTGBot\bin\Debug\AForge.dll
+D:\MMCS\AI\AIMLTGBot\bin\Debug\AForge.Imaging.dll
+D:\MMCS\AI\AIMLTGBot\bin\Debug\AForge.Math.dll
+D:\MMCS\AI\AIMLTGBot\bin\Debug\AForge.Video.DirectShow.dll
+D:\MMCS\AI\AIMLTGBot\bin\Debug\AForge.Video.dll
+D:\MMCS\AI\AIMLTGBot\bin\Debug\Accord.xml
+D:\MMCS\AI\AIMLTGBot\bin\Debug\Accord.Neuro.xml
+D:\MMCS\AI\AIMLTGBot\bin\Debug\AForge.xml
+D:\MMCS\AI\AIMLTGBot\bin\Debug\AForge.Imaging.xml
+D:\MMCS\AI\AIMLTGBot\bin\Debug\AForge.Math.xml
+D:\MMCS\AI\AIMLTGBot\bin\Debug\AForge.Video.xml
+D:\MMCS\AI\AIMLTGBot\bin\Debug\AForge.Video.DirectShow.xml
